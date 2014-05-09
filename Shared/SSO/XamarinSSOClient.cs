@@ -2,8 +2,8 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Web;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace Xamarin.SSO.Client {
     public class XamarinSSOClient {
@@ -23,17 +23,23 @@ namespace Xamarin.SSO.Client {
             this.apikey = apikey;
         }
 
-        protected virtual WebRequest SetupRequest (string method, string url)
+        protected virtual WebRequest SetupRequest(string method, string url)
         {
-            WebRequest req = (WebRequest) WebRequest.Create (url);
+            WebRequest req = (WebRequest)WebRequest.Create(url);
             req.Method = method;
-            if (req is HttpWebRequest) {
-                ((HttpWebRequest) req).UserAgent = user_agent;
+            req.Credentials = new NetworkCredential(apikey, "");
+#if NETFX_CORE
+            //TODO
+#else
+            if (req is HttpWebRequest)
+            {
+                ((HttpWebRequest)req).UserAgent = user_agent;
             }
-            req.Credentials = new NetworkCredential (apikey, "");
             req.PreAuthenticate = true;
-            req.Headers.Add ("Authorization", "Basic " + Convert.ToBase64String (Encoding.UTF8.GetBytes (apikey + ":")));
+            req.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(apikey + ":")));
             req.Timeout = TimeoutSeconds * 1000;
+#endif
+
             if (method == "POST" || method == "PUT")
                 req.ContentType = "application/x-www-form-urlencoded";
 
@@ -47,20 +53,25 @@ namespace Xamarin.SSO.Client {
             }
         }
 
-        protected virtual string DoRequest (string endpoint, string method = "GET", string body = null)
+        protected async virtual Task<string> DoRequest (string endpoint, string method = "GET", string body = null)
         {
             string result = null;
             WebRequest req = SetupRequest (method, endpoint);
             if (body != null) {
                 byte [] bytes = encoding.GetBytes (body.ToString ());
+              #if NETFX_CORE
+            //TODO
+#else   
                 req.ContentLength = bytes.Length;
-                using (Stream st = req.GetRequestStream ()) {
+#endif
+                using (Stream st = await req.GetRequestStreamAsync ()) {
                     st.Write (bytes, 0, bytes.Length);
                 }
             }
 
             try {
-                using (WebResponse resp = (WebResponse) req.GetResponse ()) {
+                using (WebResponse resp = (WebResponse) (await req.GetResponseAsync()))
+                {
                     result = GetResponseAsString (resp);
                 }
             } catch (WebException) {
@@ -69,7 +80,7 @@ namespace Xamarin.SSO.Client {
             return result;
         }
 
-        public AccountResponse CreateToken (string email, string password)
+        public async Task<AccountResponse> CreateToken (string email, string password)
         {
             if (String.IsNullOrWhiteSpace (email))
                 throw new ArgumentNullException ("email");
@@ -77,7 +88,7 @@ namespace Xamarin.SSO.Client {
                 throw new ArgumentNullException ("password");
 
             var str = String.Format ("email={0}&password={1}", UrlEncode (email), UrlEncode (password));
-            string json = DoRequest (auth_api_url, "POST", str);
+            string json = await DoRequest (auth_api_url, "POST", str);
             return JsonConvert.DeserializeObject<AccountResponse> (json);
         }
 
@@ -85,7 +96,8 @@ namespace Xamarin.SSO.Client {
         {
             if (src == null)
                 return null;
-            return HttpUtility.UrlEncode (src);
+           
+            return WebUtility.UrlEncode(src);
         }
     }
 }

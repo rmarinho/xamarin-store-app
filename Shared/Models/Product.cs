@@ -2,6 +2,10 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.ComponentModel;
+#if NETFX_CORE
+using XamarinStore.Helpers;
+#endif
+
 
 namespace XamarinStore
 {
