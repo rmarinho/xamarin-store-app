@@ -1,0 +1,31 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:XamarinStore.Resources">
+   
+    <Color x:Key="XamarinBlueColor">#3498DB</Color>
+    <Color x:Key="XamarinGrayColor">#7B8889</Color>
+    
+    <SolidColorBrush x:Key="XamarinBlueBrush" Color="{StaticResource XamarinBlueColor}"></SolidColorBrush>
+    <SolidColorBrush x:Key="XamarinGrayBrush" Color="{StaticResource XamarinGrayColor}"></SolidColorBrush>
+
+    <Style x:Key="ProductListBoxItem"   TargetType="ListBoxItem">
+        <Setter Property="Height" Value="400" />
+        <Setter  Property="Padding" Value="0,0,0,0"></Setter>
+        <Setter  Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+    </Style>
+
+    <DataTemplate x:Key="ProductTemplate">
+        <Grid  HorizontalAlignment="Stretch">
+            <Image Source="{Binding ImageUrl}" Stretch="UniformToFill" ></Image>
+            <Border Height="50" Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Margin="0,0,0,20">
+                <TextBlock  Padding="12,3,12,3"  Foreground="{StaticResource XamarinGrayBrush}" Text="{Binding Name}" Style="{StaticResource SubheaderTextBlockStyle}"></TextBlock>
+
+            </Border>
+            <Border Height="50"  Background="{ThemeResource XamarinBlueBrush}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,20">
+                <TextBlock  Padding="12,3,12,3" VerticalAlignment="Center" Text="{Binding  PriceDescription}" Style="{StaticResource SubheaderTextBlockStyle}" Foreground="White" FontWeight="ExtraBold"></TextBlock>
+            </Border>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

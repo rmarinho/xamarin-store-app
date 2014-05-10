@@ -39,6 +39,8 @@ namespace XamarinStore
             this.Suspending += this.OnSuspending;
         }
 
+        public static Frame RootFrame;
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used when the application is launched to open a specific file, to display
@@ -100,7 +102,7 @@ namespace XamarinStore
                     throw new Exception("Failed to create initial page");
                 }
             }
-
+            RootFrame = rootFrame;
             // Ensure the current window is active
             Window.Current.Activate();
         }

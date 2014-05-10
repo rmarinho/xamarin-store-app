@@ -16,10 +16,30 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\INavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Resources\XamarinStoreTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\complete.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\configure.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\dummy_avatar.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\empty_basket.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\gallery_next.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\gallery_prev.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\icon.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\ic_action_basket.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\ic_action_logo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\processing.png" />
   </ItemGroup>
 </Project>

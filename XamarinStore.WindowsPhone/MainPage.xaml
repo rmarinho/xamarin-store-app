@@ -14,7 +14,21 @@
             <RowDefinition ></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="{Binding StoreTitle}"></TextBlock>
-        <ListBox Grid.Row="1" ItemsSource="{Binding Products}" ></ListBox>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition  Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Image  Source="Resources/Images/ic_action_logo.png" Stretch="Uniform" Margin="12,0,0,0" Width="50" HorizontalAlignment="Left"></Image>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                   Foreground="{StaticResource XamarinGrayBrush}" FontSize="24" FontWeight="Bold"
+                   Text="{Binding StoreTitle}"></TextBlock>
+        <Image Grid.Column="2" Source="Resources/Images/ic_action_basket.png" Stretch="Uniform" Margin="0,0,12,0" HorizontalAlignment="Right" Width="50"></Image>
+        <ListBox x:Name="lstProducts" Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Products}" 
+                 ItemTemplate="{StaticResource ProductTemplate}" SelectionMode="Single"
+                  SelectedItem="{Binding  SelectedProduct , Mode=TwoWay}"
+                  ItemContainerStyle="{StaticResource ProductListBoxItem}"
+                 HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" >
+        </ListBox>
     </Grid>
 </Page>

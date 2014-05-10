@@ -66,7 +66,7 @@ namespace XamarinStore
                     //TODO: Get a Monkey!!!
                     //extraParams = "?includeMonkeys=true";
 
-                    var request = CreateRequest("products" + extraParams);
+                    var request = CreateRequest("GET","products" + extraParams);
 
                     string response = await ReadResponseText(request);
                     products = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Product>>(response);
@@ -109,7 +109,7 @@ namespace XamarinStore
                 if (countries.Count > 0)
                     return countries;
 
-                var request = CreateRequest("Countries");
+                var request = CreateRequest("GET","Countries");
                 string response = await ReadResponseText(request);
                 countries = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Country>>(response);
                 return countries;
@@ -198,15 +198,15 @@ namespace XamarinStore
         }
 #pragma warning restore 1998
 
-        static HttpWebRequest CreateRequest(string location)
+        static HttpWebRequest CreateRequest(string method, string location)
         {
             var request = (HttpWebRequest)WebRequest.Create("https://xamarin-store-app.xamarin.com/api/" + location);
-            request.Method = "GET";
+            request.Method = method;
+            request.Accept = "application/json";
 #if NETFX_CORE
-            //TODO
+           
 #else
             request.ContentType = "application/json";
-            request.Accept = "application/json";
 #endif
 
             return request;
@@ -218,9 +218,8 @@ namespace XamarinStore
             try
             {
                 var content = Encoding.UTF8.GetBytes(CurrentOrder.GetJson(user));
-                var request = CreateRequest("order" + (verify ? "?verify=1" : ""));
-                request.Method = "POST";
-
+                var request = CreateRequest("POST","order" + (verify ? "?verify=1" : ""));
+       
 #if NETFX_CORE
                 //TODO
 #else

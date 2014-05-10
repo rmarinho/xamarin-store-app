@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using XamarinStore.Services;
+using XamarinStore.Views;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,7 +28,6 @@ namespace XamarinStore
         public MainPage()
         {
             this.InitializeComponent();
-
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
@@ -43,6 +45,13 @@ namespace XamarinStore
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
+            lstProducts.SelectionChanged += lstProducts_SelectionChanged;
+       
+        }
+
+        void lstProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           // Frame.Navigate(typeof(ProductDetailPage));
         }
     }
 }

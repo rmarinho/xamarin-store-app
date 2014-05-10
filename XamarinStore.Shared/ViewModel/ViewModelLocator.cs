@@ -3,6 +3,7 @@ using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using XamarinStore.Services;
 
 namespace XamarinStore.ViewModel
 {
@@ -18,8 +19,10 @@ namespace XamarinStore.ViewModel
 
         static ViewModelLocator()
         {
+
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<INavigationService, NavigationService>();
         }
     }
 }

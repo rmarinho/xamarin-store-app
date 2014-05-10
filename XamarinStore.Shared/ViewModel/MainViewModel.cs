@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using XamarinStore.Services;
+using XamarinStore.Views;
 
 namespace XamarinStore.ViewModel
 {
@@ -22,15 +24,17 @@ namespace XamarinStore.ViewModel
             }
         }
 
-        public MainViewModel()
+        INavigationService _navService;
+        public MainViewModel(INavigationService navService)
         {
+            _navService = navService;
             Init();
         }
 
         async Task Init()
         {
             StoreTitle = IsInDesignMode
-               ? "Xamarin Store DesignMode"
+               ? "Xamarin Store D"
                : "Xamarin Store";
             var prod = await WebService.Shared.GetProducts();
             if (prod != null)
@@ -49,6 +53,30 @@ namespace XamarinStore.ViewModel
             set
             {
                 Set(() => Products, ref _products, value);
+            }
+        }
+        /// <summary>
+        /// The <see cref="SelectedProduct" /> property's name.
+        /// </summary>
+        private Product _selectedProduct = null;
+        public Product SelectedProduct
+        {
+            get
+            {
+                return _selectedProduct;
+            }
+
+            set
+            {
+                if (_selectedProduct == value)
+                {
+                    return;
+                }
+                App.RootFrame.Navigate(typeof(ProductDetailPage));
+
+                _selectedProduct = value;
+                RaisePropertyChanged(() => SelectedProduct);
+                _navService.Navigate("detail");
             }
         }
 
