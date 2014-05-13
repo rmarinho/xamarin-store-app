@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="XamarinStore.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:XamarinStore.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    
+      DataContext="{Binding Login, Mode=OneWay, Source={StaticResource Locator}}"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- TitlePanel -->
+        <StackPanel Grid.Row="0" Margin="24,17,0,28">
+            <TextBlock Text="{StaticResource AppName}" Style="{ThemeResource TitleTextBlockStyle}" Typography.Capitals="SmallCaps"/>
+            <TextBlock Text="login" Margin="0,12,0,0" Style="{ThemeResource HeaderTextBlockStyle}"/>
+        </StackPanel>
+
+        <!--TODO: Content should be placed within the following grid-->
+        <Grid Grid.Row="1" x:Name="ContentRoot">
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+            <StackPanel  Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="20,0,20,20"
+                     VerticalAlignment="Top"
+                         
+                     Visibility="{Binding  ShouldShowInstructions, Converter={StaticResource cnvBooltVisibility}}">
+                <Image  Source="../Resources/Images/configure.png"
+                    Stretch="Uniform" HorizontalAlignment="Center" Width="200" ></Image>
+                <TextBlock HorizontalAlignment="Center" Text="A small task is required to get your free shirt"
+                       Style="{StaticResource  BaseTextBlockStyle}" Foreground="Black"></TextBlock>
+                <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Margin="10"
+                           Text="Please add your Xamarin account email address to LoginViewModel.cs then revisit this screen."
+                       Style="{StaticResource  BaseTextBlockStyle}" Foreground="Black"></TextBlock>
+            </StackPanel>
+            <StackPanel  Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="20,0,20,20"
+                     VerticalAlignment="Top"
+                     Visibility="{Binding  ShouldShowInstructions, Converter={StaticResource cnvBooltVisibility}, 
+                ConverterParameter=reverse}">
+                <Image  Source="../Resources/Images/user-default-avatar.png"
+                    Stretch="Uniform" HorizontalAlignment="Center" Width="120" ></Image>
+                <TextBox Text="{Binding Username, Mode=TwoWay}" ></TextBox>
+                <PasswordBox KeyUp="txbPass_KeyUp" x:Name="txbPass" Password="{Binding Password, Mode=TwoWay}" ></PasswordBox>
+                <Button   Content="Login" HorizontalAlignment="Stretch" Command="{Binding LoginCommand}"></Button>
+                <ProgressRing IsActive="{Binding IsBusy}" Width="100" Height="100"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

@@ -17,11 +17,29 @@ namespace XamarinStore.ViewModel
             }
         }
 
+        public LoginViewModel Login
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<LoginViewModel>();
+            }
+        }
+
+        public BasketViewModel Basket
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<BasketViewModel>();
+            }
+        }
+
         static ViewModelLocator()
         {
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<BasketViewModel>();
+            SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<INavigationService, NavigationService>();
         }
     }

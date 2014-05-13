@@ -7,21 +7,29 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using Xamarin.SSO.Client;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace XamarinStore
 {
     public class WebService
     {
+        readonly string storeurl = "https://xamarin-store-app.xamarin.com/api/";
         public static readonly WebService Shared = new WebService();
 
         public User CurrentUser { get; set; }
         public Order CurrentOrder { get; set; }
+        HttpClient httpClient;
 
         XamarinSSOClient client = new XamarinSSOClient("https://auth.xamarin.com", "0c833t3w37jq58dj249dt675a465k6b0rz090zl3jpoa9jw8vz7y6awpj5ox0qmb");
 
         public WebService()
         {
             CurrentOrder = new Order();
+            httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(storeurl);
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
         }
 
         public async Task<bool> Login(string username, string password)
@@ -66,7 +74,7 @@ namespace XamarinStore
                     //TODO: Get a Monkey!!!
                     //extraParams = "?includeMonkeys=true";
 
-                    var request = CreateRequest("GET","products" + extraParams);
+                    var request = CreateRequest(HttpMethod.Get, "products" + extraParams);
 
                     string response = await ReadResponseText(request);
                     products = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Product>>(response);
@@ -109,7 +117,7 @@ namespace XamarinStore
                 if (countries.Count > 0)
                     return countries;
 
-                var request = CreateRequest("GET","Countries");
+                var request = CreateRequest(HttpMethod.Get, "Countries");
                 string response = await ReadResponseText(request);
                 countries = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Country>>(response);
                 return countries;
@@ -198,37 +206,18 @@ namespace XamarinStore
         }
 #pragma warning restore 1998
 
-        static HttpWebRequest CreateRequest(string method, string location)
+        static HttpRequestMessage CreateRequest(HttpMethod method, string url)
         {
-            var request = (HttpWebRequest)WebRequest.Create("https://xamarin-store-app.xamarin.com/api/" + location);
-            request.Method = method;
-            request.Accept = "application/json";
-#if NETFX_CORE
-           
-#else
-            request.ContentType = "application/json";
-#endif
-
-            return request;
+            var httpRequestMessage = new HttpRequestMessage(method, url);
+            return httpRequestMessage;
         }
-
 
         public async Task<OrderResult> PlaceOrder(User user, bool verify = false)
         {
             try
             {
-                var content = Encoding.UTF8.GetBytes(CurrentOrder.GetJson(user));
-                var request = CreateRequest("POST","order" + (verify ? "?verify=1" : ""));
-       
-#if NETFX_CORE
-                //TODO
-#else
-                request.ContentLength = content.Length;
-#endif
-                using (Stream s = await request.GetRequestStreamAsync())
-                {
-                    s.Write(content, 0, content.Length);
-                }
+                var request = CreateRequest(HttpMethod.Post, "order" + (verify ? "?verify=1" : ""));
+                request.Content = new StringContent(CurrentOrder.GetJson(user), Encoding.UTF8, "application/json");
                 string response = await ReadResponseText(request);
                 var result = Newtonsoft.Json.JsonConvert.DeserializeObject<OrderResult>(response);
                 if (!verify && result.Success)
@@ -245,19 +234,11 @@ namespace XamarinStore
             }
         }
 
-
-        protected async Task<string> ReadResponseText(HttpWebRequest req)
+        protected async Task<string> ReadResponseText(HttpRequestMessage req)
         {
-            using (WebResponse resp = await req.GetResponseAsync())
-            {
-                using (Stream s = (resp).GetResponseStream())
-                {
-                    using (var r = new StreamReader(s, Encoding.UTF8))
-                    {
-                        return r.ReadToEnd();
-                    }
-                }
-            }
+            var response = await httpClient.SendAsync(req);
+            var result = await response.Content.ReadAsStringAsync();
+            return result;
         }
     }
 }
