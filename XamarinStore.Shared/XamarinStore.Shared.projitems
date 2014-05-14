@@ -46,6 +46,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Resources\Images\icon.png" />
     <Content Include="$(MSBuildThisFileDirectory)Resources\Images\ic_action_basket.png" />
     <Content Include="$(MSBuildThisFileDirectory)Resources\Images\ic_action_logo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Resources\Images\logoxamarin.png" />
     <Content Include="$(MSBuildThisFileDirectory)Resources\Images\processing.png" />
     <Content Include="$(MSBuildThisFileDirectory)Resources\Images\user-default-avatar.png" />
   </ItemGroup>

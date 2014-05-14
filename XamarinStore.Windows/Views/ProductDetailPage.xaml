@@ -5,9 +5,82 @@
     xmlns:local="using:XamarinStore.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Hub >
+            <Hub.Header>
+                <!-- Back button and page title -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button  x:Name="backButton" Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        Margin="0,0,39,0" 
+                        VerticalAlignment="Top"
+                        Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
 
+                    <TextBlock x:Name="pageTitle" x:Uid="Header" Text="{Binding SelectedProduct.Name}"  FontWeight="SemiBold" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        VerticalAlignment="Top" IsHitTestVisible="false" TextWrapping="NoWrap" />
+                </Grid>
+            </Hub.Header>
+            <HubSection Width="780" Margin="0,0,80,0" >
+                <HubSection.Background>
+                    <ImageBrush  ImageSource="{Binding SelectedProduct.ImageUrl}" Stretch="UniformToFill" ></ImageBrush>
+                </HubSection.Background>
+                
+            </HubSection>
+            <HubSection Width="500" Header="Detail" >
+                <DataTemplate>
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="0"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto" ></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition  Height="Auto"></RowDefinition>
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="7*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                      
+                        <TextBlock Grid.Row="1"  Foreground="Pink" HorizontalAlignment="Left" Text="{Binding SelectedProduct.Name}"></TextBlock>
+                        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding SelectedProduct.PriceDescription}"></TextBlock>
+
+                        <TextBlock Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="2" Text="{Binding SelectedProduct.Description}"></TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Size"></TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Color"></TextBlock>
+                        <ComboBox Grid.Row="3" Grid.Column="1"   ItemsSource="{Binding SelectedProduct.Sizes}" SelectedItem="{Binding SelectedSize, Mode=TwoWay}"></ComboBox>
+                        <ComboBox Grid.Row="4" Grid.Column="1"   ItemsSource="{Binding SelectedProduct.Colors}" SelectedItem="{Binding  SelectedColor, Mode=TwoWay}"  ></ComboBox>
+                        <Button Grid.Row="5" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Margin="20,10,20,10"   Content="Add to Basket" Command="{Binding AddToBasketCommand}"></Button>
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+            <HubSection  Header="Images"  Width="600">
+                <DataTemplate>
+                    <FlipView  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  ItemsSource="{Binding SelectedProduct.Color.ImageUrls}">
+                        <FlipView.ItemTemplate>
+                            <DataTemplate>
+                                <Image Stretch="UniformToFill" Source="{Binding}"></Image>
+                            </DataTemplate>
+                        </FlipView.ItemTemplate>
+
+                    </FlipView>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
     </Grid>
 </Page>

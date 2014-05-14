@@ -6,6 +6,7 @@ using System.Text;
 using Windows.UI.Popups;
 using XamarinStore.Helpers;
 using XamarinStore.Services;
+using MvvmLight = GalaSoft.MvvmLight.Command;
 
 namespace XamarinStore.ViewModel
 {
@@ -57,13 +58,13 @@ namespace XamarinStore.ViewModel
 
 
         }
-        private RelayCommand _loginCommand;
-        public RelayCommand LoginCommand
+        private MvvmLight.RelayCommand _loginCommand;
+        public MvvmLight.RelayCommand LoginCommand
         {
             get
             {
                 return _loginCommand
-                    ?? (_loginCommand = new RelayCommand(
+                    ?? (_loginCommand = new MvvmLight.RelayCommand(
                                          async () =>
                                          {
                                              Login(Username, Password);

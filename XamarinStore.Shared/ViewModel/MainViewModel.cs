@@ -13,19 +13,7 @@ namespace XamarinStore.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        private string _storeTitle;
-        public string StoreTitle
-        {
-            get
-            {
-                return _storeTitle;
-            }
-            set
-            {
-                Set(() => StoreTitle, ref _storeTitle, value);
-            }
-        }
-
+       
         INavigationService _navService;
         public MainViewModel(INavigationService navService)
         {
@@ -35,9 +23,7 @@ namespace XamarinStore.ViewModel
 
         async Task Init()
         {
-            StoreTitle = IsInDesignMode
-               ? "Xamarin Store D"
-               : "Xamarin Store";
+          
             var prod = await WebService.Shared.GetProducts();
             if (prod != null)
             {
@@ -141,8 +127,6 @@ namespace XamarinStore.ViewModel
 
             }
         }
-
-
 
         private RelayCommand _addToBasketCommand;
         public RelayCommand AddToBasketCommand
