@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using XamarinStore.Helpers;
 using XamarinStore.Views;
 
 namespace XamarinStore.Services
@@ -11,8 +12,10 @@ namespace XamarinStore.Services
     public class NavigationService : INavigationService
     {
 
+
         public void Navigate(string pagename)
         {
+            
             switch (pagename)
             {
                 case "detail":

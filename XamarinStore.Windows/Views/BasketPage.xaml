@@ -5,9 +5,143 @@
     xmlns:local="using:XamarinStore.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      DataContext="{Binding Basket, Mode=OneWay, Source={StaticResource Locator}}"
+    x:Name="pageRoot"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Hub >
+            <Hub.Header>
+                <!-- Back button and page title -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button  x:Name="backButton" Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        Margin="0,0,39,0" 
+                        VerticalAlignment="Top"
+                        Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
 
+                    <TextBlock x:Name="pageTitle" x:Uid="Header" Text="Your Basket"  FontWeight="Light" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        VerticalAlignment="Top" IsHitTestVisible="false" TextWrapping="NoWrap" />
+                </Grid>
+            </Hub.Header>
+            <HubSection Margin="0,0,80,0" >
+
+                <DataTemplate>
+                    <Grid Width="600">
+                        <Grid.ChildrenTransitions>
+                            <TransitionCollection>
+                                <ContentThemeTransition/>
+                            </TransitionCollection>
+                        </Grid.ChildrenTransitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="170"></RowDefinition>
+                            <RowDefinition Height="150"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Border  Background="#00aedb" Margin="10" Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <StackPanel  VerticalAlignment="Center">
+                                <TextBlock 
+                    HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"
+                    Text="{Binding ProductCount}" Style="{StaticResource HeaderTextBlockStyle}"></TextBlock>
+                                <TextBlock Foreground="Wheat"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Text="products" Style="{StaticResource  SubheaderTextBlockStyle}"></TextBlock>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="#a200ff" Grid.Column="1" Padding="10"  Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <TextBlock Foreground="White"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Text="{Binding TotalAmount}" Style="{StaticResource HeaderTextBlockStyle}"></TextBlock>
+
+                        </Border>
+                        <Button Grid.Row="1"
+                             
+                                Command="{Binding CheckOutCommand}" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Button.Content>
+                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <AppBarButton Icon="Like"  Margin="0,23,0,0" IsHitTestVisible="False">
+
+                                    </AppBarButton>
+                                    <TextBlock Text="Checkout" Style="{StaticResource HeaderTextBlockStyle}" VerticalAlignment="Center"></TextBlock>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="Your products:">
+                <DataTemplate>
+                    <Grid>
+
+
+                        <StackPanel 
+                     VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                     Visibility="{Binding ProductCount, Converter={StaticResource cnvProductCountVisibility}, ConverterParameter=reverse}">
+                            <Image  Source="../Resources/Images/empty-basket.png"  Width="500" 
+                    Stretch="Uniform" HorizontalAlignment="Stretch" ></Image>
+                            <TextBlock HorizontalAlignment="Center" Text="Sorry your basket is empty"
+                     Foreground="LightGray" Style="{ThemeResource SubheaderTextBlockStyle}"></TextBlock>
+                        </StackPanel>
+
+                        <ListView 
+                                  SelectionMode="None"
+                                  ItemsSource="{Binding CurrentOrder.Products}"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  Visibility="{Binding ProductCount, Converter={StaticResource cnvProductCountVisibility}}">
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid  Margin="10" Width="600" Height="200" >
+                                        <Grid.ChildrenTransitions>
+                                            <TransitionCollection>
+                                                <EntranceThemeTransition/>
+                                            </TransitionCollection>
+                                        </Grid.ChildrenTransitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" Height="200" Width="200" HorizontalAlignment="Left">
+                                            <Image Source="{Binding ImageUrl}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Name}" Height="200" Width="200"/>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" Margin="12,0,0,0">
+                                            <StackPanel.Transitions>
+                                                <TransitionCollection>
+                                                    <EntranceThemeTransition></EntranceThemeTransition>
+                                                </TransitionCollection>
+                                            </StackPanel.Transitions>
+                                            <TextBlock Text="{Binding Name}" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+                                            <TextBlock Text="{Binding Size}" Style="{ThemeResource SubheaderTextBlockStyle}" />
+                                            <TextBlock Text="{Binding Color}" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding PriceDescription}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource HeaderTextBlockStyle}"
+                                                    />
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+
+        </Hub>
     </Grid>
 </Page>

@@ -5,11 +5,82 @@
     xmlns:local="using:XamarinStore.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    
+    x:Name="pageRoot"   DataContext="{Binding Login, Mode=OneWay, Source={StaticResource Locator}}"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            
-        </StackPanel>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Hub HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" >
+            <Hub.Header>
+                <!-- Back button and page title -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button  x:Name="backButton" Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        Margin="0,0,39,0" 
+                        VerticalAlignment="Top"
+                        Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
+
+                    <TextBlock x:Name="pageTitle" x:Uid="Header" Text="Login"  FontWeight="Light" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        VerticalAlignment="Top" IsHitTestVisible="false" TextWrapping="NoWrap" />
+                </Grid>
+            </Hub.Header>
+            <HubSection>
+                <DataTemplate>
+                    <Ellipse    Stretch="Uniform" HorizontalAlignment="Center" Width="300" Height="300" >
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding GravatarImageUrl}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                </DataTemplate>
+            </HubSection>
+            <HubSection Margin="100,0,0,0"  Width="800" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" >
+                <DataTemplate>
+                    <Grid   >
+                        <Grid.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition/>
+                            </TransitionCollection>
+                        </Grid.ChildrenTransitions>
+                        <StackPanel  Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="20,0,20,20" 
+                     VerticalAlignment="Top"
+                         
+                     Visibility="{Binding  ShouldShowInstructions, Converter={StaticResource cnvBooltVisibility}}">
+                            <Image  Source="../Resources/Images/configure.png"
+                    Stretch="Uniform" HorizontalAlignment="Center" Width="200" ></Image>
+                            <TextBlock HorizontalAlignment="Center" Text="A small task is required to get your free shirt"
+                       Style="{StaticResource  BaseTextBlockStyle}" Foreground="Black"></TextBlock>
+                            <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Margin="10"
+                           Text="Please add your Xamarin account email address to LoginViewModel.cs then revisit this screen."
+                       Style="{StaticResource  BaseTextBlockStyle}" Foreground="Black"></TextBlock>
+                        </StackPanel>
+                        <StackPanel  Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="20,0,20,20"
+                     VerticalAlignment="Top"
+                     Visibility="{Binding  ShouldShowInstructions, Converter={StaticResource cnvBooltVisibility}, 
+                ConverterParameter=reverse}">
+
+                            <TextBlock Text="username"  Margin="20,20,20,0" Style="{StaticResource SubheaderTextBlockStyle}"></TextBlock>
+                            <TextBox Text="{Binding Username, Mode=TwoWay}" Margin="20,10,20,0" ></TextBox>
+                            <TextBlock Text="password"  Margin="20,20,20,0" Style="{StaticResource SubheaderTextBlockStyle}"></TextBlock>
+                            <PasswordBox KeyUp="txbPass_KeyUp" x:Name="txbPass" Password="{Binding Password, Mode=TwoWay}" Margin="20,10,20,0" ></PasswordBox>
+                            <Button   Content="Login" HorizontalAlignment="Stretch" Command="{Binding LoginCommand}" Height="200" FontSize="33"  Margin="20"></Button>
+                            <ProgressRing IsActive="{Binding IsBusy}" Width="200" Height="200"  Margin="20"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
     </Grid>
 </Page>

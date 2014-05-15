@@ -59,5 +59,12 @@ namespace XamarinStore.Views
             this.navigationHelper.OnNavigatedFrom(e);
         }
         #endregion
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            topBar.IsOpen = true;
+        }
+
+      
     }
 }

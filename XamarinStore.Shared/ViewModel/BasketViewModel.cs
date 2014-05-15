@@ -14,12 +14,12 @@ namespace XamarinStore.ViewModel
         public BasketViewModel(INavigationService navService)
         {
             _navService = navService;
-
+            UpdateTotals();
         }
 
         public void UpdateTotals()
         {
-            ProductCount = _currentOrder.Products.Count;
+            ProductCount = _currentOrder != null ?  _currentOrder.Products.Count : 0;
             if (ProductCount == 0)
             {
                 TotalAmount = "";
