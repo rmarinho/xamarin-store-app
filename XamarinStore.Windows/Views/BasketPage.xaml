@@ -144,4 +144,11 @@
 
         </Hub>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar  IsOpen="False">
+            <AppBarButton Icon="Accept" Label="checkout"  Command="{Binding CheckOutCommand}">
+
+            </AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

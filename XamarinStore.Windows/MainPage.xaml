@@ -8,7 +8,41 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}"
     mc:Ignorable="d">
+    <Page.TopAppBar>
+        <AppBar x:Name="topBar">
+            <Grid Height="100">
+                <Grid.ChildrenTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition/>
+                    </TransitionCollection>
+                </Grid.ChildrenTransitions>
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition  Width="Auto" ></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Image  Source="../Resources/Images/ic_action_logo.png" Stretch="Uniform" Margin="12,0,0,0" Width="50" HorizontalAlignment="Left"></Image>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                   Foreground="{StaticResource XamarinGrayBrush}" FontSize="24" FontWeight="Bold"
+                   Text="{StaticResource AppName}"></TextBlock>
+                <Button BorderThickness="0 " Grid.Column="2"   Style="{StaticResource ShowBasketButton}" 
+                HorizontalAlignment="Right" Width="138" Command="{Binding ShowBasketCommand}" Margin="0,4,-35,0">
+                </Button>
+
+                <Border Grid.Column="2" Background="{StaticResource XamarinBlueBrush}" IsHitTestVisible="False"
+                Visibility="{Binding ProductCount, Converter={StaticResource cnvProductCountVisibility}}"
+                CornerRadius="5,5,5,5" 
+                Margin="0,0,35,25" HorizontalAlignment="Right" Width="30" Height="20">
+                    <TextBlock Text="{Binding ProductCount}" 
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" 
+                       FontSize="12" FontWeight="Bold"
+                       Foreground="White" Style="{StaticResource BodyTextBlockStyle}"></TextBlock>
+                </Border>
+            </Grid>
+        </AppBar>
+    </Page.TopAppBar>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
