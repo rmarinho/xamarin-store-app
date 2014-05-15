@@ -86,15 +86,8 @@ namespace XamarinStore.ViewModel
 
             set
             {
-                if (_selectedProduct == value)
-                {
-                    return;
-                }
-                App.RootFrame.Navigate(typeof(ProductDetailPage));
-
+        
                 _selectedProduct = value;
-
-
                 RaisePropertyChanged(() => SelectedProduct);
                 _navService.Navigate("detail");
                 //TIP: we can't bind or set the property to the Color property yet because this item isn't part of the collection, they we have a navy color but is not the same object
