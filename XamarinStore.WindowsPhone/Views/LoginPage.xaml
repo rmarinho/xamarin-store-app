@@ -52,8 +52,12 @@
                      VerticalAlignment="Top"
                      Visibility="{Binding  ShouldShowInstructions, Converter={StaticResource cnvBooltVisibility}, 
                 ConverterParameter=reverse}">
-                <Image  Source="../Resources/Images/user-default-avatar.png"
-                    Stretch="Uniform" HorizontalAlignment="Center" Width="120" ></Image>
+                <Ellipse    Stretch="Uniform" HorizontalAlignment="Center" Width="120" Height="120" >
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding GravatarImageUrl}"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                
                 <TextBox Text="{Binding Username, Mode=TwoWay}" ></TextBox>
                 <PasswordBox KeyUp="txbPass_KeyUp" x:Name="txbPass" Password="{Binding Password, Mode=TwoWay}" ></PasswordBox>
                 <Button   Content="Login" HorizontalAlignment="Stretch" Command="{Binding LoginCommand}"></Button>

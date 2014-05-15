@@ -24,7 +24,7 @@
         <Image  Source="../Resources/Images/ic_action_logo.png" Stretch="Uniform" Margin="12,0,0,0" Width="50" HorizontalAlignment="Left"></Image>
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" 
                    Foreground="{StaticResource XamarinGrayBrush}" FontSize="24" FontWeight="Bold"
-                   Text="{Binding StoreTitle}"></TextBlock>
+                   Text="{StaticResource AppName}"></TextBlock>
         <Button BorderThickness="0 " Grid.Column="2"   Style="{StaticResource ShowBasketButton}"
                 HorizontalAlignment="Right" Width="138" Command="{Binding ShowBasketCommand}" Margin="0,4,-35,0">
         </Button>

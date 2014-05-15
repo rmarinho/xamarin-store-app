@@ -118,15 +118,14 @@ namespace XamarinStore
 
 		async void DisplayGravatar (string email)
 		{
-			NSData data;
-
-			try {
-				data = await Gravatar.GetImageData (email, (int) GravatarSize.Width * 2);
-			} catch {
-				return;
-			}
-
-			GravatarView.Image = UIImage.LoadFromData (data);
+            try
+            {
+                await GravatarView.LoadUrl(Gravatar.GetURL(email, (int)GravatarSize.Width * 2));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 		}
 
 		void AddConstantSizeConstraints (UIView view, SizeF size)

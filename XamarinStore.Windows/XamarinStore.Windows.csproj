@@ -103,48 +103,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Shared\Data\Color.cs">
-      <Link>Data\Color.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Data\EventArgs.cs">
-      <Link>Data\EventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Data\FileCache.cs">
-      <Link>Data\FileCache.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Data\Gravatar.cs">
-      <Link>Data\Gravatar.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Data\WebService.cs">
-      <Link>Data\WebService.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\Country.cs">
-      <Link>Models\Country.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\Order.cs">
-      <Link>Models\Order.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\OrderResult.cs">
-      <Link>Models\OrderResult.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\Product.cs">
-      <Link>Models\Product.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\ProductColor.cs">
-      <Link>Models\ProductColor.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\ProductSize.cs">
-      <Link>Models\ProductSize.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\User.cs">
-      <Link>Models\User.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\SSO\UserModels.cs">
-      <Link>SSO\UserModels.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\SSO\XamarinSSOClient.cs">
-      <Link>SSO\XamarinSSOClient.cs</Link>
-    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -206,6 +164,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\netcore45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamarinStore.Core\XamarinStore.Core.csproj">
+      <Project>{51f6ab64-7118-4430-980d-1f318828ecf9}</Project>
+      <Name>XamarinStore.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Fragments\ProductDetailsFragment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -65,39 +66,6 @@
     <Compile Include="Fragments\ShippingDetailsFragment.cs" />
     <Compile Include="Fragments\ProductListFragment.cs" />
     <Compile Include="Fragments\BasketFragment.cs" />
-    <Compile Include="..\Shared\Data\EventArgs.cs">
-      <Link>Shared\Data\EventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Data\Gravatar.cs">
-      <Link>Shared\Data\Gravatar.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Data\WebService.cs">
-      <Link>Shared\Data\WebService.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\Order.cs">
-      <Link>Shared\Models\Order.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\OrderResult.cs">
-      <Link>Shared\Models\OrderResult.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\Product.cs">
-      <Link>Shared\Models\Product.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\User.cs">
-      <Link>Shared\Models\User.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\SSO\UserModels.cs">
-      <Link>Shared\SSO\UserModels.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\SSO\XamarinSSOClient.cs">
-      <Link>Shared\SSO\XamarinSSOClient.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\ProductColor.cs">
-      <Link>Shared\Models\ProductColor.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\ProductSize.cs">
-      <Link>Shared\Models\ProductSize.cs</Link>
-    </Compile>
     <Compile Include="Fragments\LoginFragment.cs" />
     <Compile Include="Helpers\Images.cs" />
     <Compile Include="Views\XamarinSpinnerView.cs" />
@@ -105,19 +73,7 @@
     <Compile Include="Views\SlidingLayout.cs" />
     <Compile Include="Views\ViewSwipeTouchListener.cs" />
     <Compile Include="Views\SwipableListItem.cs" />
-    <Compile Include="..\Shared\Helpers\ListExtensions.cs">
-      <Link>Shared\Helpers\ListExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Data\FileCache.cs">
-      <Link>Shared\Data\FileCache.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Models\Country.cs">
-      <Link>Shared\Models\Country.cs</Link>
-    </Compile>
     <Compile Include="App.cs" />
-    <Compile Include="..\Shared\Data\Color.cs">
-      <Link>Shared\Data\Color.cs</Link>
-    </Compile>
     <Compile Include="Views\KenBurnsDrawable.cs" />
     <Compile Include="Helpers\MatrixEvaluator.cs" />
     <Compile Include="Fragments\BragFragment.cs" />
@@ -219,7 +175,12 @@
     <AndroidResource Include="Resources\drawable\btn_bg_pressed.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\XamarinStore.Core\XamarinStore.Core.csproj">
+      <Project>{51f6ab64-7118-4430-980d-1f318828ecf9}</Project>
+      <Name>XamarinStore.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <XamarinComponentReference Include="json.net">

@@ -13,7 +13,7 @@ namespace XamarinStore.ViewModel
     public class LoginViewModel : ViewModelBase
     {
         readonly string XamarinAccountEmail = "me@ruimarinho.net";
-
+        readonly string DefatultAvatarImage = "../Resources/Images/user-default-avatar.png";
         INavigationService _navService;
         public LoginViewModel(INavigationService navService)
         {
@@ -45,15 +45,15 @@ namespace XamarinStore.ViewModel
                 }
             }
             IsBusy = false;
-        
+
             if (success)
             {
                 _navService.Navigate("checkout");
             }
             else
             {
-               await MessageBox.ShowAsync("Only one shirt per person. Edit your cart and try again.", "Sorry",
-                                           MessageBoxButton.OK);
+                await MessageBox.ShowAsync("Only one shirt per person. Edit your cart and try again.", "Sorry",
+                                            MessageBoxButton.OK);
             }
 
 
@@ -90,6 +90,7 @@ namespace XamarinStore.ViewModel
 
                 _username = value;
                 RaisePropertyChanged(() => Username);
+                RaisePropertyChanged(() => GravatarImageUrl);
                 LoginCommand.RaiseCanExecuteChanged();
             }
         }
@@ -115,7 +116,14 @@ namespace XamarinStore.ViewModel
             }
         }
 
+        public string GravatarImageUrl
+        {
+            get
+            {
+                return string.IsNullOrEmpty(Username) ? DefatultAvatarImage : Gravatar.GetURL (Username,200);
+            }
 
+        }
 
         private bool _isBusy = false;
         public bool IsBusy
@@ -136,6 +144,6 @@ namespace XamarinStore.ViewModel
                 RaisePropertyChanged(() => IsBusy);
             }
         }
-        
+
     }
 }
