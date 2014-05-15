@@ -96,7 +96,7 @@
             <HubSection  Header="Products" Padding="40,40,40,32">
                 <DataTemplate>
                     <GridView
-                        x:Name="itemGridView"
+                        x:Name="productsGridView" Loaded="productsGridView_Loaded"
                         ItemsSource="{Binding Products}"
                         Margin="-9,-14,0,0"
                         AutomationProperties.AutomationId="ItemGridView"

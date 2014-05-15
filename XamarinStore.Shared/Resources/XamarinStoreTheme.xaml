@@ -7,9 +7,11 @@
     <x:String x:Key="AppName">Xamarin Store</x:String>
     <Color x:Key="XamarinBlueColor">#3498DB</Color>
     <Color x:Key="XamarinGrayColor">#7B8889</Color>
+    <Color x:Key="XamarinGreenColor">#77D065</Color>
     
     <SolidColorBrush x:Key="XamarinBlueBrush" Color="{StaticResource XamarinBlueColor}"></SolidColorBrush>
     <SolidColorBrush x:Key="XamarinGrayBrush" Color="{StaticResource XamarinGrayColor}"></SolidColorBrush>
+    <SolidColorBrush x:Key="XamarinGreenBrush" Color="{StaticResource XamarinGreenColor}"></SolidColorBrush>
 
     <helpers:ProductcountToVisibilityConverter x:Key="cnvProductCountVisibility"></helpers:ProductcountToVisibilityConverter>
 

@@ -38,6 +38,11 @@ namespace XamarinStore
         }
 
         #endregion
+
+        private void lstProducts_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            (sender as ListView).SelectedItem = null;
+        }
        
     }
 }

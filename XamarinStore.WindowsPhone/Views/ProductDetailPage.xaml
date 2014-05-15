@@ -21,18 +21,19 @@
         <ScrollViewer Grid.Row="1"  HorizontalAlignment="Stretch" >
             <Grid >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="5*"></RowDefinition>
+                    <RowDefinition Height="350"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto" ></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition  Height="Auto"></RowDefinition>
-
+                    <RowDefinition  Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"></ColumnDefinition>
                     <ColumnDefinition Width="7*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+
                 <FlipView Grid.ColumnSpan="2" HorizontalAlignment="Stretch"  ItemsSource="{Binding SelectedProduct.Color.ImageUrls}">
                     <FlipView.ItemTemplate>
                         <DataTemplate>
@@ -41,17 +42,29 @@
                     </FlipView.ItemTemplate>
 
                 </FlipView>
-                <TextBlock Grid.Row="1"  Foreground="Pink" HorizontalAlignment="Left" Text="{Binding SelectedProduct.Name}"></TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding SelectedProduct.PriceDescription}"></TextBlock>
+                <TextBlock Grid.Row="1" Margin="20,10,20,10" Grid.ColumnSpan="2" Foreground="{StaticResource XamarinBlueBrush}" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis"
+                                   Text="{Binding SelectedProduct.Name}"   Style="{StaticResource SubheaderTextBlockStyle}"></TextBlock>
+                <TextBlock Grid.Row="2" Margin="20,0,20,0" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding SelectedProduct.PriceDescription}" 
+                           FontWeight="SemiBold" Style="{StaticResource ListViewItemSubheaderTextBlockStyle}" FontSize="26"></TextBlock>
 
-                <TextBlock Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="2" Text="{Binding SelectedProduct.Description}"></TextBlock>
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Size"></TextBlock>
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="Color"></TextBlock>
-                <ComboBox Grid.Row="3" Grid.Column="1"   ItemsSource="{Binding SelectedProduct.Sizes}" SelectedItem="{Binding SelectedSize, Mode=TwoWay}"></ComboBox>
-                <ComboBox Grid.Row="4" Grid.Column="1"   ItemsSource="{Binding SelectedProduct.Colors}" SelectedItem="{Binding  SelectedColor, Mode=TwoWay}"  ></ComboBox>
-                <Button Grid.Row="5" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Margin="20,10,20,10"   Content="Add to Basket" Command="{Binding AddToBasketCommand}"></Button>
+                <TextBlock Grid.Row="3" TextWrapping="Wrap" TextAlignment="Justify" Grid.ColumnSpan="2"  Margin="20,10,20,10" Text="{Binding SelectedProduct.Description}" Style="{StaticResource  TitleTextBlockStyle}" FontSize="22"></TextBlock>
+                <TextBlock Grid.Row="4" Grid.Column="0"  Margin="20,10,20,20" Text="Size" VerticalAlignment="Center"  Style="{StaticResource   SubheaderTextBlockStyle}"></TextBlock>
+                <TextBlock Grid.Row="5" Grid.Column="0"  Margin="20,10,20,20" Text="Color" VerticalAlignment="Center" Style="{StaticResource   SubheaderTextBlockStyle}"></TextBlock>
+                <ComboBox Grid.Row="4" Grid.Column="1"   Margin="20,10,20,20" ItemsSource="{Binding SelectedProduct.Sizes}" SelectedItem="{Binding SelectedSize, Mode=TwoWay}" ></ComboBox>
+                <ComboBox Grid.Row="5" Grid.Column="1"   Margin="20,10,20,20"  ItemsSource="{Binding SelectedProduct.Colors}" SelectedItem="{Binding  SelectedColor, Mode=TwoWay}"  ></ComboBox>
+            
+
+
+
             </Grid>
         </ScrollViewer>
 
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar  IsOpen="True">
+            <AppBarButton Icon="Add" Label="Buy" Command="{Binding AddToBasketCommand}">
+
+            </AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

@@ -23,7 +23,7 @@ namespace XamarinStore
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -55,7 +55,9 @@ namespace XamarinStore
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+
             this.navigationHelper.OnNavigatedTo(e);
+
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -64,5 +66,10 @@ namespace XamarinStore
         }
 
         #endregion
+
+        private void productsGridView_Loaded(object sender, RoutedEventArgs e)
+        {
+            (sender as GridView).SelectedItem = null;
+        }
     }
 }

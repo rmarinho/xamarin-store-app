@@ -8,11 +8,6 @@
     x:Name="pageRoot"
        DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}"
     mc:Ignorable="d">
-    <Page.Resources>
-       
-
-        <CollectionViewSource x:Name="NavigationItemsViewSource" Source="{Binding NavigationItemList}"/>
-    </Page.Resources>
     <Page.TopAppBar>
         <AppBar x:Name="topBar">
             <Grid Height="100">
@@ -124,4 +119,9 @@
             </HubSection>
         </Hub>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar  >
+            <AppBarButton Icon="Add" Label="Buy" Command="{Binding AddToBasketCommand}" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

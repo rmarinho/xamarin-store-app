@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <local:HeaderView ></local:HeaderView>
-        <ListView x:Name="lstProducts" Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Products}" 
+        <ListView x:Name="lstProducts" Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Products}"  Loaded="lstProducts_Loaded"
                  ItemTemplate="{StaticResource ProductTemplate}" SelectionMode="Single"
                   SelectedItem="{Binding  SelectedProduct , Mode=TwoWay}"
                   ItemContainerStyle="{StaticResource ProductListBoxItem}"

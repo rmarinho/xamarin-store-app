@@ -89,12 +89,15 @@ namespace XamarinStore.ViewModel
         
                 _selectedProduct = value;
                 RaisePropertyChanged(() => SelectedProduct);
-                _navService.Navigate("detail");
-                //TIP: we can't bind or set the property to the Color property yet because this item isn't part of the collection, they we have a navy color but is not the same object
-                //will fix that if i have time 
-                //SelectedColor = _selectedProduct.Color;
-                SelectedColor = _selectedProduct.Colors.FirstOrDefault(c => c.Name.Equals(_selectedProduct.Color.Name, StringComparison.OrdinalIgnoreCase));
-                SelectedSize = _selectedProduct.Sizes.FirstOrDefault(c => c.Name.Equals(_selectedProduct.Size.Name, StringComparison.OrdinalIgnoreCase));
+                if (_selectedProduct != null)
+                {
+                    _navService.Navigate("detail");
+                    //TIP: we can't bind or set the property to the Color property yet because this item isn't part of the collection, they we have a navy color but is not the same object
+                    //will fix that if i have time 
+                    //SelectedColor = _selectedProduct.Color;
+                    SelectedColor = _selectedProduct.Colors.FirstOrDefault(c => c.Name.Equals(_selectedProduct.Color.Name, StringComparison.OrdinalIgnoreCase));
+                    SelectedSize = _selectedProduct.Sizes.FirstOrDefault(c => c.Name.Equals(_selectedProduct.Size.Name, StringComparison.OrdinalIgnoreCase));
+                }
             }
         }
 
