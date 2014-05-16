@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FC7E7851-4A32-4B43-A9E6-F68AC1EF613E}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
@@ -138,6 +136,12 @@
     <Reference Include="BTProgressHUD">
       <HintPath>..\Components\btprogresshud-1.7\lib\ios\BTProgressHUD.dll</HintPath>
     </Reference>
+    <Reference Include="PCLStorage">
+      <HintPath>..\packages\PCLStorage.0.9.6\lib\monotouch\PCLStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions">
+      <HintPath>..\packages\PCLStorage.0.9.6\lib\monotouch\PCLStorage.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -241,7 +245,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamarinStore.Core\XamarinStore.Core.csproj">
-      <Project>{51f6ab64-7118-4430-980d-1f318828ecf9}</Project>
+      <Project>{51F6AB64-7118-4430-980D-1F318828ECF9}</Project>
       <Name>XamarinStore.Core</Name>
     </ProjectReference>
   </ItemGroup>

@@ -16,8 +16,6 @@
     <AssemblyName>XamarinStore</AssemblyName>
     <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,6 +53,12 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Components\json.net-4.5.11\lib\android\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage">
+      <HintPath>..\packages\PCLStorage.0.9.6\lib\monoandroid\PCLStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions">
+      <HintPath>..\packages\PCLStorage.0.9.6\lib\monoandroid\PCLStorage.Abstractions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -170,16 +174,14 @@
     <AndroidResource Include="Resources\drawable\btn_bg.xml" />
     <AndroidResource Include="Resources\drawable\btn_bg_inactive.xml" />
     <AndroidResource Include="Resources\drawable\btn_bg_pressed.xml" />
+    <AndroidResource Include="Resources\drawable\button_image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\XamarinStore.Core\XamarinStore.Core.csproj">
-      <Project>{51f6ab64-7118-4430-980d-1f318828ecf9}</Project>
+      <Project>{51F6AB64-7118-4430-980D-1F318828ECF9}</Project>
       <Name>XamarinStore.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\button-image.png" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="json.net">

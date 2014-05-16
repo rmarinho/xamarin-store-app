@@ -13,7 +13,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
+      <DependentUpon>$(MSBuildThisFileDirectory)App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Converters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Extensions.cs" />
