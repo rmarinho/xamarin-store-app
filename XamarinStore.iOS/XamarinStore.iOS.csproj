@@ -207,9 +207,6 @@
     <BundleResource Include="Resources\Default.png" />
     <BundleResource Include="Resources\Default%402x.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
-    <BundleResource Include="..\Shared\Images\button-image.png">
-      <Link>Resources\button-image.png</Link>
-    </BundleResource>
     <BundleResource Include="Resources\cart.png" />
     <BundleResource Include="Resources\cart%402x.png" />
     <BundleResource Include="Resources\empty-basket.png" />
@@ -247,6 +244,9 @@
       <Project>{51f6ab64-7118-4430-980d-1f318828ecf9}</Project>
       <Name>XamarinStore.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\button-image.png" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

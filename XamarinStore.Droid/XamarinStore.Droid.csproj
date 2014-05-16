@@ -107,9 +107,6 @@
     <AndroidResource Include="Resources\layout\PrefillXamarinAccountInstructions.axml" />
     <AndroidResource Include="Resources\drawable-hdpi\wrench.png" />
     <AndroidResource Include="Resources\layout\LoginScreen.axml" />
-    <AndroidResource Include="..\Shared\Images\button-image.png">
-      <Link>Resources\drawable\buttonimage.png</Link>
-    </AndroidResource>
     <AndroidResource Include="Resources\anim\enter.xml" />
     <AndroidResource Include="Resources\anim\exit.xml" />
     <AndroidResource Include="Resources\drawable\wrench.png" />
@@ -181,7 +178,9 @@
       <Name>XamarinStore.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\button-image.png" />
+  </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="json.net">
       <Version>4.5.11</Version>
