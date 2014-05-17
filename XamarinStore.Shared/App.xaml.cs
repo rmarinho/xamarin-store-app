@@ -55,6 +55,8 @@ namespace XamarinStore
              //   this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
+         //   FileCache.FileExists = (file) => (File.Exists(file));
+
 
             Frame rootFrame = Window.Current.Content as Frame;
 

@@ -12,7 +12,7 @@ namespace XamarinStore.ViewModel
 {
     public class LoginViewModel : ViewModelBase
     {
-        readonly string XamarinAccountEmail = "me@ruimarinho.net";
+        readonly string XamarinAccountEmail = "me+xamarin@ruimarinho.net";
         readonly string DefatultAvatarImage = "../Resources/Images/user-default-avatar.png";
         INavigationService _navService;
         public LoginViewModel(INavigationService navService)
@@ -29,8 +29,7 @@ namespace XamarinStore.ViewModel
         async void Login(string username, string password)
         {
             IsBusy = true;
-            //  BTProgressHUD.Show("Logging in...");
-
+          
             var success = await WebService.Shared.Login(username, password);
             if (success)
             {
@@ -48,16 +47,17 @@ namespace XamarinStore.ViewModel
 
             if (success)
             {
-                _navService.Navigate("checkout");
+                _navService.Navigate("address");
             }
             else
             {
-                await MessageBox.ShowAsync("Only one shirt per person. Edit your cart and try again.", "Sorry",
+                await MessageBox.ShowAsync("Please verify your Xamarin account credentials and try again.", "Could Not Log In",
                                             MessageBoxButton.OK);
             }
 
 
         }
+
         private MvvmLight.RelayCommand _loginCommand;
         public MvvmLight.RelayCommand LoginCommand
         {
@@ -95,7 +95,7 @@ namespace XamarinStore.ViewModel
             }
         }
 
-        private string _password = string.Empty;
+        private string _password = "";
         public string Password
         {
             get

@@ -146,7 +146,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar  IsOpen="False">
-            <AppBarButton Icon="Accept" Label="checkout"  Command="{Binding CheckOutCommand}">
+            <AppBarButton Icon="Accept" Label="checkout" IsCompact="False" Command="{Binding CheckOutCommand}">
 
             </AppBarButton>
         </CommandBar>

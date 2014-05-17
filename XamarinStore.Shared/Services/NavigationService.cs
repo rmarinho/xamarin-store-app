@@ -27,6 +27,16 @@ namespace XamarinStore.Services
                 case "login":
                     MainFrame.Navigate(typeof(LoginPage));
                     break;
+                case "address":
+                    MainFrame.Navigate(typeof(ShippingAddressView));
+                    break;
+                case "processing":
+                    MainFrame.Navigate(typeof(ProcessingView));
+                    break;
+                case "done":
+                    MainFrame.Navigate(typeof(MainPage));
+                    MainFrame.BackStack.Clear();
+                    break;
                 default:
                     break;
             }

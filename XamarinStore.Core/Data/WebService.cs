@@ -212,7 +212,7 @@ namespace XamarinStore
             return httpRequestMessage;
         }
 
-        public async Task<OrderResult> PlaceOrder(User user, bool verify = false)
+        public async Task<OrderResult> PlaceOrder(User user, bool verify = true)
         {
             try
             {

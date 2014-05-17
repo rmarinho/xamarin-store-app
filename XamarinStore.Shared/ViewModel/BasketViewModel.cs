@@ -5,6 +5,9 @@ using System.Text;
 using System.Linq;
 using GalaSoft.MvvmLight.Command;
 using XamarinStore.Services;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using XamarinStore.Helpers;
 
 namespace XamarinStore.ViewModel
 {
@@ -15,11 +18,12 @@ namespace XamarinStore.ViewModel
         {
             _navService = navService;
             UpdateTotals();
+            GetCountries();
         }
 
-        public void UpdateTotals()
+        void UpdateTotals()
         {
-            ProductCount = _currentOrder != null ?  _currentOrder.Products.Count : 0;
+            ProductCount = _currentOrder != null ? _currentOrder.Products.Count : 0;
             if (ProductCount == 0)
             {
                 TotalAmount = "";
@@ -27,11 +31,171 @@ namespace XamarinStore.ViewModel
             }
             var total = CurrentOrder.Products.Sum(x => x.Price);
             TotalAmount = total.ToString("C");
+
+
+            // GetStates();
+        }
+        async void GetCountries()
+        {
+            var countries = await WebService.Shared.GetCountries();
+            Countries = new ObservableCollection<Country>(countries);
+        }
+
+        async void GetStates()
+        {
+            var states = await WebService.Shared.GetStates(SelectedCountry.Name);
+            States = new ObservableCollection<string>(states);
+        }
+        public async Task PlaceOrder()
+        {
+            if (SelectedCountry == null)
+            {
+                await MessageBox.ShowAsync("You need to Selecte a country" , "Error",
+                                           MessageBoxButton.OK);
+                return;
+            }
+            User.Country = SelectedCountry.Code;
+            var isValid = await User.IsInformationValid();
+            if (!isValid.Item1)
+            {
+                await MessageBox.ShowAsync(isValid.Item2, "Error",
+                                             MessageBoxButton.OK);
+                return;
+            }
+
+            _navService.Navigate("processing");
+            //if (ShippingComplete != null)
+            //    ShippingComplete(this, EventArgs.Empty);
+        }
+
+        public async void ProcessOrder()
+        {
+            IsBusy = true;
+            OrderStatus = "We are processing your order, please wait";
+            var result = await WebService.Shared.PlaceOrder(User);
+            IsOrderComplete = result.Success;
+            OrderStatus = IsOrderComplete ? "Your order has been placed!" : result.Message;
+            IsBusy = false;
+         
+            //showSuccess();
+            //if (OrderPlaced != null)
+            //    OrderPlaced(this, EventArgs.Empty);
+        }
+
+        public User User { get { return WebService.Shared.CurrentUser; } }
+
+
+        private string _orderStatus = "Processing...";
+        public string OrderStatus
+        {
+            get
+            {
+                return _orderStatus;
+            }
+
+            set
+            {
+                if (_orderStatus == value)
+                {
+                    return;
+                }
+
+                _orderStatus = value;
+                RaisePropertyChanged(() => OrderStatus);
+            }
+        }
+
+        private ObservableCollection<Country> _countries = null;
+        public ObservableCollection<Country> Countries
+        {
+            get
+            {
+                return _countries;
+            }
+
+            set
+            {
+                if (_countries == value)
+                {
+                    return;
+                }
+
+                _countries = value;
+                RaisePropertyChanged(() => Countries);
+            }
+        }
+
+        private Country _selectedCountry = null;
+        public Country SelectedCountry
+        {
+            get
+            {
+                return _selectedCountry;
+            }
+
+            set
+            {
+                if (_selectedCountry == value)
+                {
+                    return;
+                }
+
+                _selectedCountry = value;
+                RaisePropertyChanged(() => SelectedCountry);
+                PlaceOrderCommand.RaiseCanExecuteChanged();
+                GetStates();
+            }
+        }
+
+        private ObservableCollection<string> _states = null;
+        public ObservableCollection<string> States
+        {
+            get
+            {
+                return _states;
+            }
+
+            set
+            {
+                if (_states == null)
+                    _states = value;
+                else
+                {
+                    _states.Clear();
+                    foreach (var state in value)
+                    {
+                        _states.Add(state);
+                    }
+                }
+
+
+
+                RaisePropertyChanged(() => States);
+            }
+        }
+
+        private string _selectedState = "";
+        public string SelectedState
+        {
+            get
+            {
+                return _selectedState;
+            }
+
+            set
+            {
+                if (_selectedState == value)
+                {
+                    return;
+                }
+
+                _selectedState = value;
+                RaisePropertyChanged(() => SelectedState);
+            }
         }
 
 
         private string _totalAmount = "100€";
-
         public string TotalAmount
         {
             get
@@ -102,7 +266,93 @@ namespace XamarinStore.ViewModel
                                           () =>
                                           {
                                               _navService.Navigate("login");
-                                          }, ()=> ProductCount > 0));
+                                          }, () => ProductCount > 0));
+            }
+        }
+
+
+        private RelayCommand _placeOrderCommand;
+        public RelayCommand PlaceOrderCommand
+        {
+            get
+            {
+                return _placeOrderCommand
+                    ?? (_placeOrderCommand = new RelayCommand(
+                                         async () =>
+                                         {
+                                             await PlaceOrder();
+                                         }, () =>
+                                         {
+                                           
+                                             return true;
+                                         }));
+            }
+
+        }
+
+        private RelayCommand _doneCommand;
+        public RelayCommand DoneCommand
+        {
+            get
+            {
+                return _doneCommand
+                    ?? (_doneCommand = new RelayCommand(
+                                          () =>
+                                         {
+                                             _navService.Navigate("done");
+                                         }, () =>
+                                         {
+
+                                             return true;
+                                         }));
+            }
+
+        }
+
+
+        private bool _isbusy = false;
+        public bool IsBusy
+        {
+            get
+            {
+                return _isbusy;
+            }
+
+            set
+            {
+                if (_isbusy == value)
+                {
+                    return;
+                }
+
+                _isbusy = value;
+
+
+                RaisePropertyChanged(() => IsBusy);
+                CheckOutCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool _isorderComplete = false;
+        public bool IsOrderComplete
+        {
+            get
+            {
+                return _isorderComplete;
+            }
+
+            set
+            {
+                if (_isorderComplete == value)
+                {
+                    return;
+                }
+
+                _isorderComplete = value;
+
+
+                RaisePropertyChanged(() => IsOrderComplete);
+                CheckOutCommand.RaiseCanExecuteChanged();
             }
         }
     }
