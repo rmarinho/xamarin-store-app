@@ -87,7 +87,6 @@ namespace XamarinStore.Helpers
         object Clone();
     }
 
-
     class MessageBox
     {
 

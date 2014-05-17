@@ -1,16 +1,30 @@
-﻿<Page
+﻿<helpers:BasePage
     x:Class="XamarinStore.Views.ProductDetailPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:XamarinStore.Views"
       xmlns:controls="using:XamarinStore.Views"
+    xmlns:helpers="using:XamarinStore.Helpers"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <helpers:BasePage.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo></ContinuumNavigationTransitionInfo>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </helpers:BasePage.Transitions>
     <Grid>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
         <Grid.RowDefinitions>
             <RowDefinition ></RowDefinition>
             <RowDefinition Height="9*"></RowDefinition>
@@ -60,11 +74,11 @@
         </ScrollViewer>
 
     </Grid>
-    <Page.BottomAppBar>
+    <helpers:BasePage.BottomAppBar>
         <CommandBar  IsOpen="True">
             <AppBarButton Icon="Add" Label="Buy" Command="{Binding AddToBasketCommand}">
 
             </AppBarButton>
         </CommandBar>
-    </Page.BottomAppBar>
-</Page>
+    </helpers:BasePage.BottomAppBar>
+</helpers:BasePage>

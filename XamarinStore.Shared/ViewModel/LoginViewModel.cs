@@ -1,17 +1,14 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Windows.UI.Popups;
 using XamarinStore.Helpers;
 using XamarinStore.Services;
-using MvvmLight = GalaSoft.MvvmLight.Command;
 
 namespace XamarinStore.ViewModel
 {
     public class LoginViewModel : ViewModelBase
     {
+        #region Ctor
+
         readonly string XamarinAccountEmail = "me+xamarin@ruimarinho.net";
         readonly string DefatultAvatarImage = "../Resources/Images/user-default-avatar.png";
         INavigationService _navService;
@@ -19,12 +16,9 @@ namespace XamarinStore.ViewModel
         {
             _navService = navService;
             Username = XamarinAccountEmail;
-        }
+        } 
 
-        public bool ShouldShowInstructions
-        {
-            get { return string.IsNullOrEmpty(XamarinAccountEmail); }
-        }
+        #endregion
 
         async void Login(string username, string password)
         {
@@ -58,13 +52,14 @@ namespace XamarinStore.ViewModel
 
         }
 
-        private MvvmLight.RelayCommand _loginCommand;
-        public MvvmLight.RelayCommand LoginCommand
+        #region Properties
+        private RelayCommand _loginCommand;
+        public RelayCommand LoginCommand
         {
             get
             {
                 return _loginCommand
-                    ?? (_loginCommand = new MvvmLight.RelayCommand(
+                    ?? (_loginCommand = new RelayCommand(
                                          async () =>
                                          {
                                              Login(Username, Password);
@@ -120,7 +115,7 @@ namespace XamarinStore.ViewModel
         {
             get
             {
-                return string.IsNullOrEmpty(Username) ? DefatultAvatarImage : Gravatar.GetURL (Username,200);
+                return string.IsNullOrEmpty(Username) ? DefatultAvatarImage : Gravatar.GetURL(Username, 200);
             }
 
         }
@@ -145,5 +140,10 @@ namespace XamarinStore.ViewModel
             }
         }
 
+        public bool ShouldShowInstructions
+        {
+            get { return string.IsNullOrEmpty(XamarinAccountEmail); }
+        } 
+        #endregion
     }
 }

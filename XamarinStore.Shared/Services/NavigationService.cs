@@ -28,10 +28,10 @@ namespace XamarinStore.Services
                     MainFrame.Navigate(typeof(LoginPage));
                     break;
                 case "address":
-                    MainFrame.Navigate(typeof(ShippingAddressView));
+                    MainFrame.Navigate(typeof(ShippingAddressPage));
                     break;
                 case "processing":
-                    MainFrame.Navigate(typeof(ProcessingView));
+                    MainFrame.Navigate(typeof(ProcessingPage));
                     break;
                 case "done":
                     MainFrame.Navigate(typeof(MainPage));
@@ -42,7 +42,7 @@ namespace XamarinStore.Services
             }
         }
 
-        public Frame MainFrame
+        private Frame MainFrame
         {
             get
             {

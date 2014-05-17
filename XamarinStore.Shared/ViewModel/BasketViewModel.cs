@@ -1,26 +1,28 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 using GalaSoft.MvvmLight.Command;
-using XamarinStore.Services;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using XamarinStore.Helpers;
+using XamarinStore.Services;
 
 namespace XamarinStore.ViewModel
 {
     public class BasketViewModel : ViewModelBase
     {
+        #region Ctor
+
         INavigationService _navService;
         public BasketViewModel(INavigationService navService)
         {
             _navService = navService;
             UpdateTotals();
             GetCountries();
-        }
+        } 
 
+        #endregion
+
+        #region Private Methods
         void UpdateTotals()
         {
             ProductCount = _currentOrder != null ? _currentOrder.Products.Count : 0;
@@ -35,6 +37,7 @@ namespace XamarinStore.ViewModel
 
             // GetStates();
         }
+
         async void GetCountries()
         {
             var countries = await WebService.Shared.GetCountries();
@@ -46,11 +49,12 @@ namespace XamarinStore.ViewModel
             var states = await WebService.Shared.GetStates(SelectedCountry.Name);
             States = new ObservableCollection<string>(states);
         }
-        public async Task PlaceOrder()
+
+        async Task PlaceOrder()
         {
             if (SelectedCountry == null)
             {
-                await MessageBox.ShowAsync("You need to Selecte a country" , "Error",
+                await MessageBox.ShowAsync("You need to Selecte a country", "Error",
                                            MessageBoxButton.OK);
                 return;
             }
@@ -66,7 +70,8 @@ namespace XamarinStore.ViewModel
             _navService.Navigate("processing");
             //if (ShippingComplete != null)
             //    ShippingComplete(this, EventArgs.Empty);
-        }
+        } 
+        #endregion
 
         public async void ProcessOrder()
         {
@@ -76,12 +81,9 @@ namespace XamarinStore.ViewModel
             IsOrderComplete = result.Success;
             OrderStatus = IsOrderComplete ? "Your order has been placed!" : result.Message;
             IsBusy = false;
-         
-            //showSuccess();
-            //if (OrderPlaced != null)
-            //    OrderPlaced(this, EventArgs.Empty);
         }
 
+        #region Properties 
         public User User { get { return WebService.Shared.CurrentUser; } }
 
 
@@ -256,60 +258,6 @@ namespace XamarinStore.ViewModel
         }
 
 
-        private RelayCommand _checkOutCommand;
-        public RelayCommand CheckOutCommand
-        {
-            get
-            {
-                return _checkOutCommand
-                    ?? (_checkOutCommand = new RelayCommand(
-                                          () =>
-                                          {
-                                              _navService.Navigate("login");
-                                          }, () => ProductCount > 0));
-            }
-        }
-
-
-        private RelayCommand _placeOrderCommand;
-        public RelayCommand PlaceOrderCommand
-        {
-            get
-            {
-                return _placeOrderCommand
-                    ?? (_placeOrderCommand = new RelayCommand(
-                                         async () =>
-                                         {
-                                             await PlaceOrder();
-                                         }, () =>
-                                         {
-                                           
-                                             return true;
-                                         }));
-            }
-
-        }
-
-        private RelayCommand _doneCommand;
-        public RelayCommand DoneCommand
-        {
-            get
-            {
-                return _doneCommand
-                    ?? (_doneCommand = new RelayCommand(
-                                          () =>
-                                         {
-                                             _navService.Navigate("done");
-                                         }, () =>
-                                         {
-
-                                             return true;
-                                         }));
-            }
-
-        }
-
-
         private bool _isbusy = false;
         public bool IsBusy
         {
@@ -355,5 +303,63 @@ namespace XamarinStore.ViewModel
                 CheckOutCommand.RaiseCanExecuteChanged();
             }
         }
+        #endregion
+
+        #region Commands
+
+        private RelayCommand _checkOutCommand;
+        public RelayCommand CheckOutCommand
+        {
+            get
+            {
+                return _checkOutCommand
+                    ?? (_checkOutCommand = new RelayCommand(
+                                          () =>
+                                          {
+                                              _navService.Navigate("login");
+                                          }, () => ProductCount > 0));
+            }
+        }
+
+        private RelayCommand _placeOrderCommand;
+        public RelayCommand PlaceOrderCommand
+        {
+            get
+            {
+                return _placeOrderCommand
+                    ?? (_placeOrderCommand = new RelayCommand(
+                                         async () =>
+                                         {
+                                             await PlaceOrder();
+                                         }, () =>
+                                         {
+
+                                             return true;
+                                         }));
+            }
+
+        }
+
+        private RelayCommand _doneCommand;
+        public RelayCommand DoneCommand
+        {
+            get
+            {
+                return _doneCommand
+                    ?? (_doneCommand = new RelayCommand(
+                                          () =>
+                                          {
+                                              _navService.Navigate("done");
+                                          }, () =>
+                                         {
+
+                                             return true;
+                                         }));
+            }
+
+        }
+        
+        #endregion
+
     }
 }

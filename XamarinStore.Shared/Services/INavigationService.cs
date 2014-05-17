@@ -7,8 +7,6 @@ namespace XamarinStore.Services
 {
     public interface INavigationService
     {
-        Frame MainFrame { get; }
         void Navigate(string pagename);
-
     }
 }

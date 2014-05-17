@@ -1,29 +1,30 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
-using XamarinStore.Services;
-using XamarinStore.Views;
-using System.Linq;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using XamarinStore.Services;
+
 namespace XamarinStore.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-       
+
+        #region Ctor
         INavigationService _navService;
         public MainViewModel(INavigationService navService)
         {
             _navService = navService;
+#pragma warning disable 4014
             Init();
-        }
+#pragma warning restore 4014
+        } 
+        #endregion
 
         async Task Init()
-        {
-          
+        { 
             var prod = await WebService.Shared.GetProducts();
             if (prod != null)
             {
@@ -33,6 +34,7 @@ namespace XamarinStore.ViewModel
                 SelectedProduct = Products.FirstOrDefault();
         }
 
+        #region Properties
         private ObservableCollection<Product> _products;
         public ObservableCollection<Product> Products
         {
@@ -86,7 +88,7 @@ namespace XamarinStore.ViewModel
 
             set
             {
-        
+
                 _selectedProduct = value;
                 RaisePropertyChanged(() => SelectedProduct);
                 if (_selectedProduct != null)
@@ -122,8 +124,11 @@ namespace XamarinStore.ViewModel
                 RaisePropertyChanged(() => ProductCount);
 
             }
-        }
+        } 
+        #endregion
 
+        #region Commands
+        
         private RelayCommand _addToBasketCommand;
         public RelayCommand AddToBasketCommand
         {
@@ -156,6 +161,7 @@ namespace XamarinStore.ViewModel
             }
         }
 
+        #endregion
 
     }
 }

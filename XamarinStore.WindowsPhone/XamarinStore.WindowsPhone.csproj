@@ -89,20 +89,17 @@
     <Compile Include="Views\BasketPage.xaml.cs">
       <DependentUpon>BasketPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HeaderView.xaml.cs">
-      <DependentUpon>HeaderView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProcessingView.xaml.cs">
-      <DependentUpon>ProcessingView.xaml</DependentUpon>
+    <Compile Include="Views\ProcessingPage.xaml.cs">
+      <DependentUpon>ProcessingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductDetailPage.xaml.cs">
       <DependentUpon>ProductDetailPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ShippingAddressView.xaml.cs">
-      <DependentUpon>ShippingAddressView.xaml</DependentUpon>
+    <Compile Include="Views\ShippingAddressPage.xaml.cs">
+      <DependentUpon>ShippingAddressPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -127,15 +124,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HeaderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProcessingView.xaml">
+    <Page Include="Views\ProcessingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -143,7 +136,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ShippingAddressView.xaml">
+    <Page Include="Views\ShippingAddressPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

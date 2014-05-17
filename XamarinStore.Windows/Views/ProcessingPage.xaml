@@ -1,11 +1,12 @@
-﻿<Page
-    x:Class="XamarinStore.Views.ProcessingView"
+﻿<helpers:BasePage
+    x:Class="XamarinStore.Views.ProcessingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:XamarinStore.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     DataContext="{Binding Basket, Mode=OneWay, Source={StaticResource Locator}}"
+       xmlns:helpers="using:XamarinStore.Helpers"
     mc:Ignorable="d" x:Name="pageRoot">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -59,4 +60,4 @@
         </Hub>
 
     </Grid>
-</Page>
+</helpers:BasePage>
