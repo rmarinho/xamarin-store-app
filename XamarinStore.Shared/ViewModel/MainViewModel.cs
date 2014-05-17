@@ -35,6 +35,8 @@ namespace XamarinStore.ViewModel
         }
 
         #region Properties
+        private bool isAnimating  = false;
+        
         private ObservableCollection<Product> _products;
         public ObservableCollection<Product> Products
         {
@@ -120,9 +122,9 @@ namespace XamarinStore.ViewModel
 
                 _productCount = value;
 
-
+                isAnimating = false;
                 RaisePropertyChanged(() => ProductCount);
-
+                AddToBasketCommand.RaiseCanExecuteChanged();
             }
         } 
         #endregion
@@ -141,8 +143,10 @@ namespace XamarinStore.ViewModel
                                               SelectedProduct.Color = SelectedColor;
                                               SelectedProduct.Size = SelectedSize;
                                               WebService.Shared.CurrentOrder.Add(SelectedProduct);
-                                              ProductCount++;
-                                          }, () => { return (SelectedColor != null && SelectedSize != null); }));
+                                              //little hack to handle the cart animation
+                                              isAnimating = true;
+                                              AddToBasketCommand.RaiseCanExecuteChanged();
+                                          }, () => { return (SelectedColor != null && SelectedSize != null && !isAnimating); }));
             }
         }
 

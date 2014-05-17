@@ -10,16 +10,19 @@ namespace XamarinStore.Views
         public LoginPage()
         {
             this.InitializeComponent();
-
+            this.IsTabStop = true;
         }
 
         private void txbPass_KeyUp(object sender, KeyRoutedEventArgs e)
         {
-            this.Focus(Windows.UI.Xaml.FocusState.Pointer);
+           
             if (e.Key != Windows.System.VirtualKey.Enter)
                 return;
             e.Handled = true;
+
+            this.Focus(Windows.UI.Xaml.FocusState.Pointer);
             (this.DataContext as LoginViewModel).LoginCommand.Execute(null);
+           
         }
     }
 }

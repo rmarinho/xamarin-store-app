@@ -8,18 +8,28 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+    <ContentControl Content="{Binding}"  HorizontalContentAlignment="Stretch"  >
+        <ContentControl.ContentTemplate>
+            <DataTemplate>
+                <StackPanel  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBox Text="{Binding User.FirstName, Mode=TwoWay}" PlaceholderText="First Name"></TextBox>
+                    <TextBox Text="{Binding User.LastName, Mode=TwoWay}"  PlaceholderText="Last Name"></TextBox>
+                    <TextBox Text="{Binding User.Phone, Mode=TwoWay}"  PlaceholderText="Phone Number"></TextBox>
+                    <TextBox Text="{Binding User.Address, Mode=TwoWay}" PlaceholderText="Address"></TextBox>
+                    <TextBox Text="{Binding User.Address2, Mode=TwoWay}" PlaceholderText="Address"></TextBox>
+                    <TextBox Text="{Binding User.City, Mode=TwoWay}" PlaceholderText="City"></TextBox>
+                    <TextBox Text="{Binding User.ZipCode, Mode=TwoWay}" PlaceholderText="Postal Code"></TextBox>
+                    <ComboBox SelectedItem="{Binding SelectedCountry, Mode=TwoWay}" PlaceholderText="Country"  DisplayMemberPath="Name" ItemsSource="{Binding Countries}"></ComboBox>
+                    <ComboBox SelectedItem="{Binding User.State, Mode=TwoWay}" PlaceholderText="State" ItemsSource="{Binding States}"></ComboBox>
+                </StackPanel>
 
-    <StackPanel  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <TextBox Text="{Binding User.FirstName, Mode=TwoWay}" PlaceholderText="First Name"></TextBox>
-        <TextBox Text="{Binding User.LastName, Mode=TwoWay}"  PlaceholderText="Last Name"></TextBox>
-        <TextBox Text="{Binding User.Phone, Mode=TwoWay}"  PlaceholderText="Phone Number"></TextBox>
-        <TextBox Text="{Binding User.Address, Mode=TwoWay}" PlaceholderText="Address"></TextBox>
-        <TextBox Text="{Binding User.Address2, Mode=TwoWay}" PlaceholderText="Address"></TextBox>
-        <TextBox Text="{Binding User.City, Mode=TwoWay}" PlaceholderText="City"></TextBox>
-        <TextBox Text="{Binding User.ZipCode, Mode=TwoWay}" PlaceholderText="Postal Code"></TextBox>
-        <ComboBox SelectedItem="{Binding SelectedCountry, Mode=TwoWay}" PlaceholderText="Country"  DisplayMemberPath="Name" ItemsSource="{Binding Countries}"></ComboBox>
-        <ComboBox SelectedItem="{Binding User.State, Mode=TwoWay}" PlaceholderText="State" ItemsSource="{Binding States}"></ComboBox>
-
-    </StackPanel>
+            </DataTemplate>
+        </ContentControl.ContentTemplate>
+        <ContentControl.ContentTransitions>
+            <TransitionCollection>
+                <ContentThemeTransition/>
+            </TransitionCollection>
+        </ContentControl.ContentTransitions>
+    </ContentControl>
 
 </UserControl>

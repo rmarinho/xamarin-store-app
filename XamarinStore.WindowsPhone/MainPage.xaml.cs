@@ -6,6 +6,7 @@ namespace XamarinStore
 {
     public sealed partial class MainPage : BasePage
     {
+
         public MainPage()
         {
             this.InitializeComponent();

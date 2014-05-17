@@ -52,7 +52,6 @@
     <DataTemplate x:Key="ProductTemplate">
         <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="320" MinHeight="400">
             <views:ImageView  x:Name="c_photoFrame" Image="{Binding ImageUrl}" AnimationDuration="00:00:10" />
-            <!--<Image Source="{Binding ImageUrl}" Stretch="UniformToFill" ></Image>-->
             <Border Height="50" Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Margin="0,0,0,20">
                 <TextBlock  Padding="12,3,12,3"  Foreground="{StaticResource XamarinGrayBrush}" Text="{Binding Name}" Style="{StaticResource SubheaderTextBlockStyle}"></TextBlock>
             </Border>
