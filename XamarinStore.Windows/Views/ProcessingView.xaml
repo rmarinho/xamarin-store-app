@@ -5,9 +5,58 @@
     xmlns:local="using:XamarinStore.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    DataContext="{Binding Basket, Mode=OneWay, Source={StaticResource Locator}}"
+    mc:Ignorable="d" x:Name="pageRoot">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Hub >
+            <Hub.Header>
+                <!-- Back button and page title -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button  x:Name="backButton" Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        Margin="0,0,39,0"  BorderBrush="{StaticResource XamarinBlueBrush}" 
+                        VerticalAlignment="Top" Foreground="{StaticResource XamarinBlueBrush}"
+                        Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
+
+                    <TextBlock x:Name="pageTitle" x:Uid="Header" Text="Processing Order"  Foreground="{StaticResource XamarinBlueBrush}" FontWeight="Light" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        VerticalAlignment="Top" IsHitTestVisible="false" TextWrapping="NoWrap" />
+                </Grid>
+            </Hub.Header>
+            <HubSection Width="200"></HubSection>
+            <HubSection >
+                <DataTemplate>
+                    <Grid Width="1000" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                        <StackPanel 
+                    Visibility="{Binding IsOrderComplete, Converter={StaticResource cnvBooltVisibility}}"
+                    VerticalAlignment="Center">
+                            <Image Source="../Resources/Images/complete.png" Width="300" Stretch="Uniform" ></Image>
+                            <TextBlock HorizontalAlignment="Center" 
+                       Text="{Binding OrderStatus, FallbackValue='Processing your order'}"
+                       Style="{StaticResource  HeaderTextBlockStyle}" 
+                       Foreground="{StaticResource XamarinBlueBrush}"></TextBlock>
+                            <Button Content="done" HorizontalAlignment="Stretch" Command="{Binding DoneCommand}"></Button>
+                        </StackPanel>
+                        <StackPanel 
+                     Visibility="{Binding IsOrderComplete, Converter={StaticResource cnvBooltVisibility}, ConverterParameter=reverse}"
+                     VerticalAlignment="Center">
+                            <ProgressRing IsActive="{Binding IsBusy}" Width="200" Height="200"></ProgressRing>
+                            <TextBlock HorizontalAlignment="Center" 
+                       Text="{Binding OrderStatus, FallbackValue='Processing your order'}"
+                       Style="{StaticResource  HeaderTextBlockStyle}" 
+                       Foreground="{StaticResource XamarinBlueBrush}"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+
+            </HubSection>
+        </Hub>
 
     </Grid>
 </Page>

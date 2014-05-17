@@ -5,9 +5,55 @@
     xmlns:local="using:XamarinStore.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding Basket, Mode=OneWay, Source={StaticResource Locator}}" 
+    x:Name="pageRoot">
+
+
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Hub >
+            <Hub.Header>
+                <!-- Back button and page title -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button  x:Name="backButton" Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        Margin="0,0,39,0"  BorderBrush="{StaticResource XamarinBlueBrush}" 
+                        VerticalAlignment="Top" Foreground="{StaticResource XamarinBlueBrush}"
+                        Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
 
+                    <TextBlock x:Name="pageTitle" x:Uid="Header" Text="Shipping Address"  Foreground="{StaticResource XamarinBlueBrush}" FontWeight="Light" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
+                        VerticalAlignment="Top" IsHitTestVisible="false" TextWrapping="NoWrap" />
+                </Grid>
+            </Hub.Header>
+            <HubSection Width="480" Margin="0,0,80,0" >
+
+
+            </HubSection>
+            <HubSection  Header="Fill in your info"   HorizontalContentAlignment="Stretch">
+                <DataTemplate>
+
+                    <local:ShippingDetails  Width="400" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></local:ShippingDetails>
+                </DataTemplate>
+
+            </HubSection>
+        </Hub>
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar  IsOpen="True" IsSticky="True">
+            <AppBarButton IsCompact="False" Icon="Accept" Label="place order"  Command="{Binding PlaceOrderCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
